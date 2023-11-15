@@ -43,6 +43,15 @@ public class TroubleShootNet {
         ExecuteCmdRealtime(args, textArea);
     }
     
+    public void Arp(JTextArea textArea){
+        // Use java class 
+        String[] args = new String[2];
+        args[0] = "arp";        
+        args[1] = "-a";
+
+        ExecuteCmdRealtime(args, textArea);
+    }
+    
     private void ExecuteCmdRealtime(String [] args, JTextArea textArea){
         try { //ping google.lk
             textArea.setText("");

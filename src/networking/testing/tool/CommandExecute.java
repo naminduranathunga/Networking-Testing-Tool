@@ -91,11 +91,9 @@ public class CommandExecute implements Runnable {
                  t_net.Tracert(commands[1], jTextArea1);
                
                  
-            }else if (command_lower.equals("nslookup")){
+            }else if (command_lower.equals("arp")){
                  TroubleShootNet t_net = new TroubleShootNet(this);
-                 if (commands.length != 2) throw new Exception("No ip defined");
-                 
-                 t_net.Tracert(commands[1], jTextArea1);
+                 t_net.Arp(jTextArea1);
                
                  
             }else if (command_lower.equals("netstat")){
