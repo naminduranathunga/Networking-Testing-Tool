@@ -19,8 +19,28 @@ import javax.swing.JTextArea;
  *
  * @author Namindu
  */
-public class CommandExecute {
-    public void execute(String command, JTextArea jTextArea1){
+public class CommandExecute implements Runnable {
+    String command;
+    JTextArea jTextArea1;
+    boolean isRunning = false;    
+    public boolean terminate_next = false;
+
+    
+    
+    public CommandExecute(String command_, JTextArea jTextArea1_){
+        command = command_;
+        jTextArea1 = jTextArea1_;
+        isRunning = false;
+    }
+    
+    public void execute(String command_, JTextArea jTextArea1_){
+        
+    }
+    
+    @Override
+    public void run(){
+        terminate_next = false;
+        isRunning = true;
         //convert to lowercase
         String[] commands = command.split(" ");
         if (commands.length == 0) {
@@ -58,12 +78,30 @@ public class CommandExecute {
                  
                  
             }else if (command_lower.equals("ping")){
-                 TroubleShootNet t_net = new TroubleShootNet();
+                 TroubleShootNet t_net = new TroubleShootNet(this);
                  if (commands.length != 2) throw new Exception("No ip defined");
                  
                  t_net.Ping(commands[1], jTextArea1);
                
                  
+            }else if (command_lower.equals("tracert")){
+                 TroubleShootNet t_net = new TroubleShootNet(this);
+                 if (commands.length != 2) throw new Exception("No ip defined");
+                 
+                 t_net.Tracert(commands[1], jTextArea1);
+               
+                 
+            }else if (command_lower.equals("nslookup")){
+                 TroubleShootNet t_net = new TroubleShootNet(this);
+                 if (commands.length != 2) throw new Exception("No ip defined");
+                 
+                 t_net.Tracert(commands[1], jTextArea1);
+               
+                 
+            }else if (command_lower.equals("netstat")){
+                 TroubleShootNet t_net = new TroubleShootNet(this);
+                 t_net.Netstat( jTextArea1);
+               
             }else{
                 jTextArea1.setText("Invaliv command");
             }
@@ -71,6 +109,13 @@ public class CommandExecute {
             jTextArea1.setText(e.getMessage());
             e.printStackTrace();
         }
+        
+        isRunning = false;
+    }
+    
+    
+    public void terminate(){
+        terminate_next = true;
     }
 }
 

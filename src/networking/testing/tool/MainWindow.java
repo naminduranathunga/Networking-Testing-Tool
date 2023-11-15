@@ -9,7 +9,8 @@ package networking.testing.tool;
  * @author Namindu
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    CommandExecute commandExecuter = null;
+    Thread commandExecuterThread = null;
     /**
      * Creates new form MainWindow
      */
@@ -47,6 +48,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jButton2.setText("STOP");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Output");
 
@@ -96,9 +102,29 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CommandExecute p = new CommandExecute();
-        p.execute(jTextField1.getText(),jTextArea1);
+        if (commandExecuter != null && commandExecuter.isRunning){
+            return;
+        }
+        commandExecuter = new CommandExecute(jTextField1.getText(),jTextArea1);
+        commandExecuterThread = new Thread(commandExecuter);
+        commandExecuterThread.start();
+        //p.run();
+        //p.execute(jTextField1.getText(),jTextArea1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+            if (commandExecuter != null && commandExecuter.isRunning){
+                commandExecuter.terminate();
+                commandExecuterThread.join();
+                jTextArea1.setText("Process Stopped!");
+            }
+        }catch (Exception ex){
+            
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

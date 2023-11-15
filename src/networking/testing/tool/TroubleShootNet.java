@@ -14,11 +14,32 @@ import javax.swing.JTextArea;
  * @author Namindu
  */
 public class TroubleShootNet {
+    CommandExecute parent = null;
+    
+    public TroubleShootNet(CommandExecute p){
+        parent = p; 
+    }
+    
     public void Ping(String ip, JTextArea textArea){
         // Use java class 
         String[] args = new String[2];
         args[0] = "ping";
         args[1] = ip;
+        ExecuteCmdRealtime(args, textArea);
+    }
+    
+    public void Tracert(String ip, JTextArea textArea){
+        // Use java class 
+        String[] args = new String[2];
+        args[0] = "tracert";
+        args[1] = ip;
+        ExecuteCmdRealtime(args, textArea);
+    }
+    
+    public void Netstat(JTextArea textArea){
+        // Use java class 
+        String[] args = new String[1];
+        args[0] = "netstat";
         ExecuteCmdRealtime(args, textArea);
     }
     
@@ -33,7 +54,7 @@ public class TroubleShootNet {
             char[] buffer = new char[1024];
             int length = 0;
             
-            while ((length = isr.read(buffer)) > 0) {
+            while ((length = isr.read(buffer)) > 0 && !parent.terminate_next) { //terminate imidiately
                 StringBuilder stribuilder = new StringBuilder();
                 for (int i = 0; i < length; i++){
                     stribuilder.append(buffer[i]);
@@ -41,7 +62,12 @@ public class TroubleShootNet {
                 textArea.append(stribuilder.toString());
                 //textArea.append("\n");
             }
-
+               
+            if (parent.terminate_next){
+                //
+                process.destroy();
+                return;
+            }
             process.waitFor();
 
         } catch (IOException | InterruptedException e) {

@@ -25,8 +25,10 @@ public class NetworkingTestingTool {
         }
         
         MainWindow m = new MainWindow();
+        Test1 t = new Test1();
         
         m.setVisible(true);
+        t.setVisible(true);
     }
     
 }
