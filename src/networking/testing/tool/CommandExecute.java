@@ -60,7 +60,7 @@ public class CommandExecute implements Runnable {
                  jTextArea1.setText(output);
                  
                  
-            }else if (command_lower.equals("getsysteminfo")){
+            }else if (command_lower.equals("systeminfo")){
                  String output = Systeminfo.getSystemInfo(); 
                  jTextArea1.setText(output);
                  
