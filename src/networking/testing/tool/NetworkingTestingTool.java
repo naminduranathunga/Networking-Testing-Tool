@@ -15,7 +15,7 @@ public class NetworkingTestingTool {
      */
     public static void main(String[] args) {
         try{
-            System.out.println(HostName.HostName());
+            System.out.println(HostName.getHostName());
             System.out.println(HostName.getMac());
         }catch (Exception ex){
             ex.printStackTrace();

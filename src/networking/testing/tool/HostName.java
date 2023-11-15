@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
  */
 public class HostName {
  
-    public static String HostName() throws IOException{
+    public static String getHostName() throws IOException{
         InetAddress localh = InetAddress.getLocalHost();
         return localh.getHostName();
     }

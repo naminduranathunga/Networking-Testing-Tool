@@ -94,7 +94,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CommandExecute p = new CommandExecute();
-        p.execute("ping",jTextArea1);
+        p.execute(jTextField1.getText(),jTextArea1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
