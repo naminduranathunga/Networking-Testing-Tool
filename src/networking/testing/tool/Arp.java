@@ -12,37 +12,37 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Ifconfig {
-    public static String getIfconfig() {
-        String os = System.getProperty("os.name").toLowerCase();
-
+public class Arp {
+    public static String getArpTable() {
         try {
+            String os = System.getProperty("os.name").toLowerCase();
             String command;
             if (os.contains("win")) {
-                command = "ipconfig";
+                command = "arp -a";
             } else {
-                command = "ifconfig";
+                command = "ip neigh show"; // Linux equivalent
             }
 
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
+            ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
-
+            
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
             StringBuilder output = new StringBuilder();
+            String line;
             while ((line = reader.readLine()) != null) {
                 output.append(line).append("\n");
             }
 
-            process.waitFor();
-            return output.toString();
-
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                return output.toString();
+            } else {
+                return "Error: Command exited with non-zero status";
+            }
         } catch (IOException | InterruptedException e) {
-            System.out.println("Error!");
             e.printStackTrace();
+            return "Error: Exception occurred";
         }
-
-        return "Error!";
     }
 }

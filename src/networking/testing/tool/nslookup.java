@@ -9,34 +9,27 @@ package networking.testing.tool;
  * @author User
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.InetAddress;
 
 public class nslookup {
     public static String getNslookup(String domain) {
+        //String domain = "example.com"; // Replace with the domain you want to lookup
+
         try {
-            String command = "nslookup " + domain;
+            InetAddress[] addresses = InetAddress.getAllByName(domain);
 
-            ProcessBuilder processBuilder = new ProcessBuilder(command);
-            processBuilder.redirectErrorStream(true);
-            Process process = processBuilder.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            StringBuilder output = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+            System.out.println("IP Addresses for " + domain + ":");
+            for (InetAddress address : addresses) {
+                System.out.println(address.getHostAddress());
             }
-
-            process.waitFor();
-            return output.toString();
-
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Error!");
+            
+        } catch (Exception e) 
+        {
+            System.out.println("Could not find IP for: " + domain);
             e.printStackTrace();
         }
-
-        return "Error!";
+        return " ";
     }
 }
+
+
