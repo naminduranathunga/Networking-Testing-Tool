@@ -93,7 +93,8 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        CommandExecute p = new CommandExecute();
+        p.execute("ping",jTextArea1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
