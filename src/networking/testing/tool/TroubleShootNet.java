@@ -23,24 +23,26 @@ public class TroubleShootNet {
     }
     
     private void ExecuteCmdRealtime(String [] args, JTextArea textArea){
-        try {
-            
-
+        try { //ping google.lk
+            textArea.setText("");
             ProcessBuilder processBuilder = new ProcessBuilder(args);
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            //StringBuilder output = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                textArea.append(line);
-                textArea.append("\n");
-                //output.append(line).append("\n");
+            InputStreamReader isr = new InputStreamReader(process.getInputStream());
+            char[] buffer = new char[1024];
+            int length = 0;
+            
+            while ((length = isr.read(buffer)) > 0) {
+                StringBuilder stribuilder = new StringBuilder();
+                for (int i = 0; i < length; i++){
+                    stribuilder.append(buffer[i]);
+                }
+                textArea.append(stribuilder.toString());
+                //textArea.append("\n");
             }
 
             process.waitFor();
-            //return output.toString();
 
         } catch (IOException | InterruptedException e) {
             System.out.println("Error!");

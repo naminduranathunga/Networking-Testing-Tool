@@ -21,46 +21,59 @@ import javax.swing.JTextArea;
  */
 public class CommandExecute {
     public void execute(String command, JTextArea jTextArea1){
-        jTextArea1.setText("started");
-            try {
-                jTextArea1.setText("between try and command");
-        if(command == "HostName"){
-        
-            jTextArea1.setText("readHostName");
-            String output = HostName.getHostName();
-            String macOutput = HostName.getMac();
-            jTextArea1.setText("Before o/p");
-            jTextArea1.setText(output);
-        
-        jTextArea1.setText("Before o/p in try");
+        //convert to lowercase
+        String[] commands = command.split(" ");
+        if (commands.length == 0) {
+            //define error
         }
+        String command_lower = commands[0].toLowerCase();
+        
+        jTextArea1.setText("started");
+        try {
+            if(command_lower.equals("hostname")){
+                String output = HostName.getHostName();
+                jTextArea1.setText(output);
+                
+                
+            }else if (command_lower.equals("getmac")){
+                 String output = HostName.getMac(); 
+                 jTextArea1.setText(output);
+                 
+                 
+            }else if (command_lower.equals("getsysteminfo")){
+                 String output = Systeminfo.getSystemInfo(); 
+                 jTextArea1.setText(output);
+                 
+                 
+            }else if (command_lower.equals("ipconfig") || command_lower.equals("ifconfig")){
+                 String output = Ifconfig.getIfconfig(); 
+                 jTextArea1.setText(output);
+                 
+                 
+            }else if (command_lower.equals("nslookup")){
+                if (commands.length != 2) throw new Exception("The domain is not defined");
+                
+                 String output = nslookup.getNslookup(commands[1]); 
+                 jTextArea1.setText(output);
+                 
+                 
+            }else if (command_lower.equals("ping")){
+                 TroubleShootNet t_net = new TroubleShootNet();
+                 if (commands.length != 2) throw new Exception("No ip defined");
+                 
+                 t_net.Ping(commands[1], jTextArea1);
+               
+                 
+            }else{
+                jTextArea1.setText("Invaliv command");
+            }
         }catch (Exception e) {
-            jTextArea1.setText("inside catch");
+            jTextArea1.setText(e.getMessage());
             e.printStackTrace();
         }
     }
 }
-        
-       // jTextArea1.setText("Y");
-      /* try {
-            Process process = Runtime.getRuntime().exec(command);
 
-            // Read the output of the command
-            InputStream inputStream = process.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            StringBuilder output = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
-            }
-
-            // Set the output in the JTextArea
-            jTextArea1.setText(output.toString());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
       
       
            
