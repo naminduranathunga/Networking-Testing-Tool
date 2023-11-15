@@ -6,7 +6,6 @@ package networking.testing.tool;
 
 import java.io.IOException;
 import java.net.*;
-import javax.swing.JTextArea;
 /**
  *
  * @author Namindu

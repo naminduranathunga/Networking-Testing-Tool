@@ -14,6 +14,9 @@ public class NetworkingTestingTool {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        //System.out.println(Ifconfig.getIfconfig()); 
+        
         try{
             System.out.println(HostName.getHostName());
             System.out.println(HostName.getMac());
@@ -22,6 +25,7 @@ public class NetworkingTestingTool {
         }
         
         MainWindow m = new MainWindow();
+        
         m.setVisible(true);
     }
     
