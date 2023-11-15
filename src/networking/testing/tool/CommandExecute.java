@@ -41,6 +41,7 @@ public class CommandExecute implements Runnable {
     public void run(){
         terminate_next = false;
         isRunning = true;
+        jTextArea1.setText("Running...");
         //convert to lowercase
         String[] commands = command.split(" ");
         if (commands.length == 0) {
