@@ -9,7 +9,9 @@ package networking.testing.tool;
  * @author Namindu
  */
 public class CommandExecute {
-    public static String execute(String command){
-        return "";
+    public static void execute(String ping){
+        
+        System.out.println("y");
+        
     }
 }
