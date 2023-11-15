@@ -101,7 +101,7 @@ public class CommandExecute implements Runnable {
                  t_net.Netstat( jTextArea1);
                
             }else{
-                jTextArea1.setText("Invaliv command");
+                jTextArea1.setText("Invalid command");
             }
         }catch (Exception e) {
             jTextArea1.setText(e.getMessage());
