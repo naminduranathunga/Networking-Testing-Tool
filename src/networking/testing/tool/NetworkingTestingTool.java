@@ -14,6 +14,13 @@ public class NetworkingTestingTool {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try{
+            System.out.println(HostName.HostName());
+            System.out.println(HostName.getMac());
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        
         MainWindow m = new MainWindow();
         m.setVisible(true);
     }
