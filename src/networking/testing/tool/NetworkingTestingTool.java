@@ -14,7 +14,12 @@ public class NetworkingTestingTool {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        Ifconfig ex=new Ifconfig();
+        System.out.println(Ifconfig.getIfconfig()); 
+        
         MainWindow m = new MainWindow();
+        
         m.setVisible(true);
     }
     
